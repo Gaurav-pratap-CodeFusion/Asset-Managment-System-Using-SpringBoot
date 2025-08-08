@@ -13,7 +13,7 @@ import java.util.*;
 @RequestMapping("/chat")
 public class ChatController {
 
-    private static final String OPENAI_API_KEY = "xxxx"; // 🔒 Replace with your key securely
+    private static final String OPENAI_API_KEY = "xxxx";
     private static final String OPENAI_URL = "xxxx";
 
     @PostMapping("/ask")
@@ -81,7 +81,7 @@ public class ChatController {
                 entry("good morning", "Good morning! How can I help you with your assets today?"),
                 entry("good afternoon", "Good afternoon! What would you like to do with your assets today?"),
                 entry("good evening", "Good evening! Need help with anything?")
-                // ✅ You can expand this map with more entries just like in your C# version
+
         );
 
         for (String key : staticMap.keySet()) {
