@@ -65,5 +65,5 @@ You can add an AI chatbot (like ChatGPT) for help and search.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/asset-management.git
+   git clone https://github.com/Gaurav-pratap-CodeFusion/Asset-Managment-System-Using-SpringBoot.git
    cd asset-management
