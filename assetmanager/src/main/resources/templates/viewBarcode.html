@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+  <meta charset="UTF-8">
+  <title>Asset Mapping</title>
+  <style>
+    .asset-view {
+      background: #f5f9ff;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .asset-view .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .asset-view .header h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .asset-view .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .asset-view .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .asset-view .data-table th,
+    .asset-view .data-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .asset-view .data-table th {
+      background-color: #3498db;
+      color: white;
+      font-weight: 500;
+    }
+
+    .asset-view .data-table tr:nth-child(even) td {
+      background-color: #f8f9fa;
+    }
+
+    .asset-view .data-table tr:hover td {
+      background-color: #e8f4fc;
+    }
+
+    .asset-view .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .asset-view .pagination a,
+    .asset-view .pagination span {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    .asset-view .pagination a {
+      background-color: #3498db;
+      color: white;
+      transition: background-color 0.2s;
+    }
+
+    .asset-view .pagination a:hover {
+      background-color: #2980b9;
+    }
+
+    .asset-view .pagination span {
+      background-color: #2980b9;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content" >
+  <div class="asset-view">
+  <div class="header">
+    <h2>Asset Mapping Details</h2>
+  </div>
+
+  <div class="container">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Asset ID</th>
+        <th>Quantity</th>
+        <th>Created On</th>
+        <th>Asset Barcode</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="asset : ${assetPage.content}">
+        <td th:text="${asset.empId}"></td>
+        <td th:text="${asset.assetId}"></td>
+        <td th:text="${asset.quantity}"></td>
+        <td th:text="${#dates.format(asset.createdOn, 'yyyy-MM-dd')}"></td>
+        <td th:text="${asset.assetBarcode}"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" th:if="${assetPage.totalPages > 1}">
+      <a th:if="${!assetPage.first}" th:href="@{/viewBarcode(page=1, size=${assetPage.size})}">First</a>
+      <a th:if="${assetPage.hasPrevious()}" th:href="@{/viewBarcode(page=${assetPage.number}, size=${assetPage.size})}">Previous</a>
+
+      <span th:each="pageNum : ${pageNumbers}">
+        <a th:if="${pageNum != assetPage.number + 1}"
+           th:href="@{/viewBarcode(page=${pageNum}, size=${assetPage.size})}"
+           th:text="${pageNum}"></a>
+        <span th:unless="${pageNum != assetPage.number + 1}" th:text="${pageNum}"></span>
+      </span>
+
+      <a th:if="${assetPage.hasNext()}" th:href="@{/viewBarcode(page=${assetPage.number + 2}, size=${assetPage.size})}">Next</a>
+      <a th:if="${!assetPage.last}" th:href="@{/viewBarcode(page=${assetPage.totalPages}, size=${assetPage.size})}">Last</a>
+    </div>
+  </div>
+  </div>
+</section>
+</body>
+</html>

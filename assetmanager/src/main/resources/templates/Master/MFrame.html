@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8" />
+<!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asset Management System</title>
+
+    <!-- CSS Libraries -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link th:href="@{/sidebar/style.css}" rel="stylesheet" type="text/css" />
+
+    <style>
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .home-section {
+            flex: 1; /* Yeh line important hai */
+            margin-left: 78px;
+            margin-top: 62px;
+            background-color: var(--color-body);
+            transition: margin-left 0.5s ease;
+            min-height: auto;
+        }
+
+        .footer {
+            background-color: #c99773;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            height: 62px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+
+
+        .sidebar.open ~ .home-section {
+            margin-left: 250px;
+        }
+
+        #txtSearchMaster {
+            height: 34px;
+        }
+        .sidebar.open .profile #ic{
+                padding-right: 20px;
+        }
+
+        .sidebar .profile #ic{
+            margin-left:10px;
+        }
+    </style>
+
+</head>
+<body>
+<!--<div class="ams-container">-->
+<!-- Navbar -->
+<div class="navbar">
+    <div class="title"><i>Asset M@nagement System</i></div>
+    <div class="navbar-right">
+        <button id="btnLogout" onclick="window.location.href='/logout'" class="btn-logout">Logout</button>
+<!--        <a th:href="@{/logout}" class="btn-logout" id="btnLogout">Logout</a>-->
+    </div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo_details">
+        <i class="bx bxl-audible icon" id="bbtt"></i>
+        <div class="logo_name">
+            <span class="ams">Asset</span> M@nagement <span class="amS">System</span>
+        </div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" id="txtSearchMaster" class="form-control" placeholder="Search...">
+            <span class="tooltip">Search</span>
+        </li>
+
+        <li>
+            <a th:href="@{/dashboard}">
+                <i class="bx bx-grid-alt"></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+            <a th:href="@{/users}">
+                <i class="bx bx-user"></i>
+                <span class="link_name">Manage User</span>
+            </a>
+            <span class="tooltip">Manage User</span>
+        </li>
+
+        <li>
+            <a th:href="@{/ScanAsset}">
+                <i class="bx bx-package"></i>
+
+                <span class="link_name">Asset</span>
+            </a>
+            <span class="tooltip">Asset</span>
+        </li>
+        <li>
+            <a th:href="@{/qrbarcode}">
+                <i class="fas fa-barcode"></i>
+
+                <span class="link_name">QR & Barcode</span>
+            </a>
+            <span class="tooltip">QR & Barcode</span>
+        </li>
+        <li>
+            <a th:href="@{/AssetMT}">
+                <i class="fa fa-cogs"></i>
+
+                <span class="link_name">Manage Asset</span>
+            </a>
+            <span class="tooltip">Manage Asset</span>
+        </li>
+        <li>
+            <a th:href="@{/employees}">
+                <i class="fa fa-users-cog"></i>
+
+                <span class="link_name">Manage Employee</span>
+            </a>
+            <span class="tooltip">Manage Employee</span>
+        </li>
+        <li>
+            <a th:href="@{/about}">
+                <i class="fa fa-info-circle"></i>
+                <span class="link_name">About</span>
+            </a>
+            <span class="tooltip">About</span>
+        </li>
+        <li>
+            <a th:href="@{/contact}">
+                <i class="fa fa-phone-alt"></i>
+
+                <span class="link_name">Contact Us</span>
+            </a>
+            <span class="tooltip">Contact Us</span>
+        </li>
+        <li>
+            <a th:href="@{/chat}">
+                <i class="fa fa-robot"></i>
+                <span class="link_name">AI Assistant</span>
+            </a>
+            <span class="tooltip">AI Assistant</span>
+        </li>
+
+
+        <!-- Dynamic menu items based on role will be inserted here by JavaScript -->
+
+        <li class="profile">
+            <div class="profile_details">
+                <img id="imgProfile" th:src="${profileImg}" class="profile_pic" alt="Profile">
+                <div class="profile_content">
+                    <div class="name" id="lblUserName" th:text="@{${userName}}"></div>
+                    <div class="designation" id="lblMessage"></div>
+                </div>
+            </div>
+
+            <a th:href="@{/logout}" id="log_out">
+                <i class="bx bx-log-out" id="ic"></i>
+            </a>
+
+        </li>
+    </ul>
+</div>
+
+<!-- Main Content Area -->
+<section class="home-section" layout:fragment="content">
+    <h2>Welcome to My Website!</h2>
+    <p>This is the landing page content shown by default.</p>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; <span id="currentYear"></span> - Asset Management System. All rights reserved.</p>
+    <p>Developed by Gaurav Pratap</p>
+</footer>
+
+<script>
+
+    window.onload = function () {
+        const sidebar = document.querySelector(".sidebar");
+        const closeBtn = document.querySelector("#btn");
+        const searchBtn = document.querySelector(".bx-search");
+        const homeSection = document.querySelector(".home-section"); // Get the main content section
+
+        closeBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("open");
+            homeSection.classList.toggle("expanded"); // Toggle expanded class
+            menuBtnChange();
+        });
+
+        searchBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("open");
+            homeSection.classList.toggle("expanded"); // Toggle expanded class
+            menuBtnChange();
+        });
+
+        function menuBtnChange() {
+            if (sidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+            }
+        }
+    };
+
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+
+
+</script>
+
+<div layout:fragment="scripts"></div>
+<!--</div>-->
+</body>
+</html>

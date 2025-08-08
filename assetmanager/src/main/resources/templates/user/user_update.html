@@ -1,0 +1,85 @@
+<!-- templates/update_ct.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter User ID</title>
+  <style>
+    .content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .container {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        width: 350px;
+        text-align: center;
+    }
+
+    .container:hover {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .container h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content">
+<div class="content-wrapper">
+  <div class="container">
+    <h2>Enter Your User ID</h2>
+
+    <form th:action="@{/users/check}" method="post">
+      <input type="text" name="UserID" class="form-control" placeholder="Enter User ID" required/>
+      <button type="submit" class="btn">Check ID</button>
+    </form>
+
+    <p th:if="${error}" th:text="${error}" class="error"></p>
+  </div>
+</div>
+</section>
+</body>
+</html>
+
+

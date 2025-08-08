@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <style>
+        .emp-add-home-section {
+            background: linear-gradient(to top left, #ffffff 0%, #ffcccc 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .emp-add-form-container {
+            width: 60%;
+            min-width: 300px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(to top left, #ffcccc 0%, #ffffff 100%);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .emp-add-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .emp-add-form-group {
+            margin-bottom: 20px;
+        }
+
+        .emp-add-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .emp-add-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .emp-add-input:focus {
+            outline: none;
+            border-color: #4a6bff;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            background-color: #fff;
+        }
+
+        .emp-add-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 15px;
+            min-height: 100px;
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .emp-add-textarea:focus {
+            outline: none;
+            border-color: #4a6bff;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            background-color: #fff;
+        }
+
+        .emp-add-button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .emp-add-submit-btn {
+            padding: 12px 25px;
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emp-add-submit-btn:hover {
+            background-color: #3a5bef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .emp-add-cancel-btn {
+            padding: 12px 25px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .emp-add-cancel-btn:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .emp-add-form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .emp-add-title {
+                font-size: 24px;
+            }
+
+            .emp-add-button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .emp-add-submit-btn,
+            .emp-add-cancel-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="emp-add-home-section">
+        <div class="emp-add-form-container">
+            <h2 class="emp-add-title">Add New Employee</h2>
+
+            <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+                <div class="emp-add-form-group">
+                    <label for="empId" class="emp-add-label">Employee ID</label>
+                    <input type="text" class="emp-add-input" id="empId" th:field="*{empId}" th:value="${employee.empId}" readonly>
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="firstName" class="emp-add-label">First Name</label>
+                    <input type="text" class="emp-add-input" id="firstName" th:field="*{firstName}" required>
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="middleName" class="emp-add-label">Middle Name</label>
+                    <input type="text" class="emp-add-input" id="middleName" th:field="*{middleName}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="lastName" class="emp-add-label">Last Name</label>
+                    <input type="text" class="emp-add-input" id="lastName" th:field="*{lastName}" required>
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="age" class="emp-add-label">Age</label>
+                    <input type="number" class="emp-add-input" id="age" th:field="*{age}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="designationId" class="emp-add-label">Designation ID</label>
+                    <input type="number" class="emp-add-input" id="designationId" th:field="*{designationId}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="departmentId" class="emp-add-label">Department ID</label>
+                    <input type="number" class="emp-add-input" id="departmentId" th:field="*{departmentId}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="email" class="emp-add-label">Email</label>
+                    <input type="email" class="emp-add-input" id="email" th:field="*{email}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="phoneNumber" class="emp-add-label">Phone Number</label>
+                    <input type="text" class="emp-add-input" id="phoneNumber" th:field="*{phoneNumber}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="dateOfJoining" class="emp-add-label">Date of Joining</label>
+                    <input type="date" class="emp-add-input" id="dateOfJoining" th:field="*{dateOfJoining}">
+                </div>
+
+                <div class="emp-add-form-group">
+                    <label for="address" class="emp-add-label">Address</label>
+                    <textarea class="emp-add-textarea" id="address" th:field="*{address}" rows="3"></textarea>
+                </div>
+
+                <div class="emp-add-button-group">
+                    <button type="submit" class="emp-add-submit-btn">Save Employee</button>
+                    <a th:href="@{/employees}" class="emp-add-cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

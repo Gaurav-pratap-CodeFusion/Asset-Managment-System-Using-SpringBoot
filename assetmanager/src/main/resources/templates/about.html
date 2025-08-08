@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+
+<head>
+  <title>About</title>
+  <style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: white;
+        color: #333;
+    }
+
+    .about-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 40px 80px;
+        gap: 30px;
+        background-color: #f8e8d2;
+        height: 100vh;
+    }
+
+    .about-text {
+        max-width: 600px;
+    }
+
+    .about-text h1 {
+        font-size: 36px;
+        color: #00704a;
+        margin-bottom: 20px;
+    }
+
+    .about-text p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .about-image img {
+        width: 300px;
+    }
+
+    .about-image {
+        margin-top: 100px;
+    }
+  </style>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="about-container">
+    <div class="about-text">
+      <h1>About Me</h1>
+      <p>Hello! I am <strong>Gaurav Pratap</strong>, a passionate developer and the sole creator of this
+        <strong>Asset Management System</strong>.
+        My goal is to create efficient, user-friendly tools that simplify asset tracking for individuals and organizations.</p>
+      <p>This project is a result of my dedication to learning and applying modern technologies like barcodes and backend development.
+        I believe in leveraging technology to solve real-world problems effectively.</p>
+      <p><strong>My Vision:</strong> To empower users with reliable and innovative solutions that save time,
+        minimize errors, and boost productivity.</p>
+      <p>Thank you for exploring my project, and I look forward to receiving your feedback!</p>
+    </div>
+    <div class="about-image">
+      <img th:src="@{/images/img/teams.png}" alt="Gaurav Pratap" />
+    </div>
+  </div>
+</section>
+</body>
+
+</html>

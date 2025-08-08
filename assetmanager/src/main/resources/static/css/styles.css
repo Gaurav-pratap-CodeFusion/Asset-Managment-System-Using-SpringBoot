@@ -1,0 +1,148 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #7F00FF, #E100FF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+}
+
+.form-container {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 35px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease;
+}
+
+.form-container:hover {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.form-container h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.form-container p {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 25px;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.ResInp {
+    width: 100%;
+    padding: 12px 42px 12px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    color: gray;
+    transition: 0.3s ease;
+}
+
+.ResInp:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Icon inside input */
+.input-group i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    pointer-events: none;
+}
+
+/* Password eye toggle */
+#eyeIcon {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+/* File Upload Styling */
+input[type="file"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Select Dropdown */
+select.ResInp {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.586l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1rem;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    background: #E100FF;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.btn:hover {
+    background: #b700d3;
+    transform: translateY(-2px);
+}
+
+/* Error message */
+.input-group span {
+    color: #ff4d4d;
+    font-size: 13px;
+    display: block;
+    margin-top: -8px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 25px;
+    }
+
+    .ResInp {
+        font-size: 14px;
+        padding: 11px 40px 11px 12px;
+        color: gray;
+    }
+
+    .form-container h1 {
+        font-size: 22px;
+    }
+}

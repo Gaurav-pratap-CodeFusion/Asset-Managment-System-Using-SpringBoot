@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form th:action="@{/login}" method="post" autocomplete="off">
+    <div class="container">
+        <div class="form-container"> <!-- updated class from login-box to form-container -->
+            <h1>Asset M@nagement Sys</h1>
+            <p>Sign in to start your session</p>
+
+            <div class="input-group">
+<!--                <label for="txtUserID">UserId</label>-->
+                <input type="text" id="txtUserID" name="userId" placeholder="UserId"
+                       class="ResInp" maxlength="20" />
+            </div>
+
+            <div class="input-group">
+<!--                <label for="txtPassword">Password</label>-->
+                <input type="password" id="txtPassword" name="userPassword" placeholder="Password"
+                       class="ResInp" maxlength="50" />
+            </div>
+
+            <div id="lblError" th:text="${mesg}" th:if="${mesg != null}" style="color: #ff4d4d; text-align: center; font-size: 13px;"></div>
+
+            <div class="input-group">
+                <label>
+                    <input type="checkbox" id="chkShowPassword" /> Show Password
+                </label>
+            </div>
+
+            <button type="submit" class="btn">Sign In</button>
+
+            <div class="links" style="margin-top: 20px; text-align: center;">
+                <a th:href="@{/forgotPassword}"
+                   style="text-decoration: none; color: white;"
+                   onmouseover="this.style.textDecoration='underline'"
+                   onmouseout="this.style.textDecoration='none'">I forgot my password</a><br />
+                <div style="height:10px;"></div>
+                <a th:href="@{/register}"
+                   style="text-decoration: none; color: white;"
+                   onmouseover="this.style.textDecoration='underline'"
+                   onmouseout="this.style.textDecoration='none'">Register a new membership</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const chkShowPassword = document.getElementById('chkShowPassword');
+        const passwordField = document.getElementById('txtPassword');
+
+        chkShowPassword.addEventListener('change', function () {
+            passwordField.type = this.checked ? 'text' : 'password';
+        });
+    });
+
+<!--    // Remove login page from history stack after successful login-->
+<!--    if (window.history && window.history.replaceState) {-->
+<!--        window.history.replaceState(null, "", window.location.href);-->
+<!--    }-->
+
+
+</script>
+
+<!--<script th:if="${mesg}">-->
+<!--    alert('[[${mesg}]]');-->
+<!--</script>-->
+
+
+</body>
+</html>

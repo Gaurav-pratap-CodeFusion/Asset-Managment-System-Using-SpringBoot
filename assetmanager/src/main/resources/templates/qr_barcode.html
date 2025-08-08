@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+
+<head>
+    <title>QR & Barcode Generator</title>
+    <style>
+
+        .home-section{background-color: #d3d3d3;}
+
+        .qr-barcode-page {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --background-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .qr-barcode-page .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .qr-barcode-page h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .qr-barcode-page input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .qr-barcode-page input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .qr-barcode-page .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .qr-barcode-page .btn {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            flex: 1;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .qr-barcode-page .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .qr-barcode-page .btn-success {
+            background-color: var(--success-color);
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .qr-barcode-page .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .qr-barcode-page img {
+            margin-top: 25px;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+    </style>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="qr-barcode-page">
+        <div class="container">
+            <h2>QR & Barcode Generator</h2>
+            <input type="text" id="content" placeholder="Enter Asset Barcode">
+            <div class="row">
+                <button class="btn btn-primary" onclick="generate('qr')">Generate QR</button>
+                <button class="btn btn-primary" onclick="generate('barcode')">Generate Barcode</button>
+            </div>
+            <div id="resultImage"></div>
+            <div class="row">
+                <a href="/api/generator/download-qr" class="btn btn-success" id="downloadQr" style="display:none;">Download QR</a>
+                <a href="/api/generator/download-barcode" class="btn btn-success" id="downloadBarcode" style="display:none;">Download Barcode</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div layout:fragment="scripts">
+    <script>
+        function generate(type) {
+            const content = document.getElementById("content").value;
+            if (!content) {
+                alert("Please enter content");
+                return;
+            }
+            const url = `/api/generator/generate-${type}`;
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `content=${encodeURIComponent(content)}`
+            })
+            .then(res => res.text())
+            .then(imagePath => {
+                document.getElementById("resultImage").innerHTML = `<img src="${imagePath}" alt="${type} Code" />`;
+                document.getElementById("downloadQr").style.display = (type === 'qr') ? 'inline-block' : 'none';
+                document.getElementById("downloadBarcode").style.display = (type === 'barcode') ? 'inline-block' : 'none';
+            })
+            .catch(err => alert("Error: " + err));
+        }
+    </script>
+</div>
+</body>
+</html>

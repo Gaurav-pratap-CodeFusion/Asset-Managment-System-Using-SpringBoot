@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            width: 400%;
+            height: 100vh;
+            animation: slide 8s infinite;
+        }
+
+            .slides img {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+            }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-100vw);
+            }
+
+            45% {
+                transform: translateX(-100vw);
+            }
+
+            50% {
+                transform: translateX(-200vw);
+            }
+
+            70% {
+                transform: translateX(-200vw);
+            }
+
+            75% {
+                transform: translateX(-300vw);
+            }
+
+            95% {
+                transform: translateX(-300vw);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="First.jpg" alt="Slide 1">
+            <img src="Second.jpg" alt="Slide 2">
+            <img src="1.jpg" alt="Slide 3">
+            <img src="2.jpg" alt="Slide 4">
+            <img src="3.jpg" alt="Slide 5">
+            <img src="4.jpg" alt="Slide 6">
+            <img src="5.jpg" alt="Slide 7">
+            <img src="6.jpg" alt="Slide 8">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Scoped styles for the charts section */
+        .home-section .asset-charts-container {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
+            padding: 20px;
+<!--            margin-top: 20px;-->
+            border-radius: 10px;
+        }
+
+        .home-section .asset-charts-container h2 {
+            font-size: 40px;
+            color: #333;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .home-section .asset-charts-container h3 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .home-section .charts-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .home-section .chart-box {
+            width: 45%;
+            min-width: 300px;
+            padding: 15px;
+            background: #f6cfbe;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .home-section canvas {
+            max-height: 300px;
+            width: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            .home-section .chart-box {
+                width: 100%;
+            }
+
+            .home-section .asset-charts-container h2 {
+                font-size: 32px;
+            }
+
+            .home-section .asset-charts-container h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="asset-charts-container">
+        <h2>Asset Charts</h2>
+        <div class="charts-container">
+            <!-- Category-wise Chart -->
+            <div class="chart-box">
+                <h3>Asset Category Chart</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+
+            <!-- Status-wise Chart -->
+            <div class="chart-box">
+                <h3>Asset Status Chart</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCategoryChart();
+            loadStatusChart();
+        });
+
+        async function loadCategoryChart() {
+            try {
+                const response = await fetch("/api/charts/asset-category", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                const data = await response.json();
+
+                const labels = data.map(item => item.AssetCategory);
+                const values = data.map(item => item.AssetCount);
+                const colors = ["#007bff", "#28a745", "#dc3545", "#ffc107", "#17a2b8"];
+
+                const ctx = document.getElementById("categoryChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Asset Count",
+                            data: values,
+                            backgroundColor: colors,
+                            borderColor: "#fff",
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: "bottom" }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error fetching category chart data:", error);
+            }
+        }
+
+        async function loadStatusChart() {
+            try {
+                const response = await fetch("/api/charts/asset-status", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                const data = await response.json();
+
+                const labels = data.map(item => item.AssetStatus);
+                const values = data.map(item => item.StatusCount);
+                const colors = ["#007bff", "#28a745", "#ffc107"];
+
+                const ctx = document.getElementById("statusChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Asset Status",
+                            data: values,
+                            backgroundColor: colors,
+                            borderColor: "#fff",
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, position: "bottom" }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error fetching status chart data:", error);
+            }
+        }
+    </script>
+
+</section>
+</body>
+</html>

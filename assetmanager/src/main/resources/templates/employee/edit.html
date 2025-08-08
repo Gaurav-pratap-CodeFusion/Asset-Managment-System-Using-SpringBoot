@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+    <title>Edit Employee</title>
+    <style>
+        .emp-edit-home-section {
+            background: linear-gradient(to top left, #ffffff 0%, #ffcccc 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .emp-edit-form-container {
+            width: 60%;
+            min-width: 300px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(to top left, #ffcccc 0%, #ffffff 100%);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .emp-edit-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .emp-edit-form-group {
+            margin-bottom: 20px;
+        }
+
+        .emp-edit-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .emp-edit-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .emp-edit-input:focus {
+            outline: none;
+            border-color: #4a6bff;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            background-color: #fff;
+        }
+
+        .emp-edit-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            font-size: 15px;
+            min-height: 100px;
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        .emp-edit-textarea:focus {
+            outline: none;
+            border-color: #4a6bff;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+            background-color: #fff;
+        }
+
+        .emp-edit-button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .emp-edit-submit-btn {
+            padding: 12px 25px;
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emp-edit-submit-btn:hover {
+            background-color: #3a5bef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .emp-edit-cancel-btn {
+            padding: 12px 25px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .emp-edit-cancel-btn:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .emp-edit-form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .emp-edit-title {
+                font-size: 24px;
+            }
+
+            .emp-edit-button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .emp-edit-submit-btn,
+            .emp-edit-cancel-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="emp-edit-home-section">
+        <div class="emp-edit-form-container">
+            <h2 class="emp-edit-title">Edit Employee</h2>
+
+            <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="emp-edit-form-group">
+                    <label for="empId" class="emp-edit-label">Employee ID</label>
+                    <input type="text" class="emp-edit-input" id="empId" th:field="*{empId}" required>
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="firstName" class="emp-edit-label">First Name</label>
+                    <input type="text" class="emp-edit-input" id="firstName" th:field="*{firstName}" required>
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="middleName" class="emp-edit-label">Middle Name</label>
+                    <input type="text" class="emp-edit-input" id="middleName" th:field="*{middleName}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="lastName" class="emp-edit-label">Last Name</label>
+                    <input type="text" class="emp-edit-input" id="lastName" th:field="*{lastName}" required>
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="age" class="emp-edit-label">Age</label>
+                    <input type="number" class="emp-edit-input" id="age" th:field="*{age}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="designationId" class="emp-edit-label">Designation ID</label>
+                    <input type="number" class="emp-edit-input" id="designationId" th:field="*{designationId}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="departmentId" class="emp-edit-label">Department ID</label>
+                    <input type="number" class="emp-edit-input" id="departmentId" th:field="*{departmentId}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="email" class="emp-edit-label">Email</label>
+                    <input type="email" class="emp-edit-input" id="email" th:field="*{email}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="phoneNumber" class="emp-edit-label">Phone Number</label>
+                    <input type="text" class="emp-edit-input" id="phoneNumber" th:field="*{phoneNumber}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="dateOfJoining" class="emp-edit-label">Date of Joining</label>
+                    <input type="date" class="emp-edit-input" id="dateOfJoining" th:field="*{dateOfJoining}">
+                </div>
+
+                <div class="emp-edit-form-group">
+                    <label for="address" class="emp-edit-label">Address</label>
+                    <textarea class="emp-edit-textarea" id="address" th:field="*{address}" rows="3"></textarea>
+                </div>
+
+                <div class="emp-edit-button-group">
+                    <button type="submit" class="emp-edit-submit-btn">Update Employee</button>
+                    <a th:href="@{/employees}" class="emp-edit-cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

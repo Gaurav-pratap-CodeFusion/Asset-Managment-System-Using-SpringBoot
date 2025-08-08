@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{Master/MFrame}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Employees</title>
+    <style>
+        .emp-mgmt-home-section {
+            background: linear-gradient(to top left, #ffffff 0%, #ffcccc 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .emp-mgmt-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 25px;
+            background: linear-gradient(to top left, #ffcccc 0%, #ffffff 100%);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .emp-mgmt-title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .emp-mgmt-search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .emp-mgmt-search-form {
+            display: flex;
+            flex-grow: 1;
+            max-width: 700px;
+            min-width: 250px;
+        }
+
+        .emp-mgmt-search-box {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #d1d1d1;
+            font-size: 15px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .emp-mgmt-search-box:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 3px rgba(0,123,255,0.2);
+        }
+
+        .emp-mgmt-voice-btn {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            background-color: #4a6bff;
+            color: white;
+            font-size: 18px;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emp-mgmt-voice-btn:hover {
+            background-color: #3a5bef;
+            transform: scale(1.05);
+        }
+
+        .emp-mgmt-voice-btn:active {
+            transform: scale(0.95);
+        }
+
+        .emp-mgmt-search-btn {
+            padding: 12px 20px;
+            margin-left: 8px;
+            background-color: #ff9f43;
+            color: #2f2f2f;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emp-mgmt-search-btn:hover {
+            background-color: #ff8c21;
+            transform: translateY(-2px);
+        }
+
+        .emp-mgmt-add-btn {
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .emp-mgmt-add-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .emp-mgmt-table-container {
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .emp-mgmt-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .emp-mgmt-table th {
+            background: #4a6bff;
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+        }
+
+        .emp-mgmt-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: #fafafa;
+        }
+
+        .emp-mgmt-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .emp-mgmt-table tr:hover td {
+            background-color: #f0f0f0;
+        }
+
+        .emp-mgmt-action-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .emp-mgmt-edit-btn {
+            padding: 8px 16px;
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emp-mgmt-edit-btn:hover {
+            background-color: #3a5bef;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .emp-mgmt-delete-btn {
+            padding: 8px 16px;
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emp-mgmt-delete-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .emp-mgmt-container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .emp-mgmt-search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .emp-mgmt-search-form {
+                margin-bottom: 10px;
+            }
+
+            .emp-mgmt-table th,
+            .emp-mgmt-table td {
+                padding: 8px 5px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+<div class="emp-mgmt-home-section">
+    <div class="emp-mgmt-container">
+        <h2 class="emp-mgmt-title">Manage Employees</h2>
+
+        <div class="emp-mgmt-search-container">
+            <form th:action="@{/employees}" method="get" class="emp-mgmt-search-form">
+                <input type="text" id="emp-mgmt-txtSearch" name="search" th:value="${searchTerm}"
+                       class="emp-mgmt-search-box" placeholder="Search by Name, Email, or Department">
+                <button type="button" class="emp-mgmt-voice-btn" onclick="startVoiceSearch()" title="Voice Search">🎤</button>
+                <button type="submit" class="emp-mgmt-search-btn">Search</button>
+            </form>
+            <a th:href="@{/employees/add}" class="emp-mgmt-add-btn">Add Employee</a>
+        </div>
+
+        <div class="emp-mgmt-table-container">
+            <table class="emp-mgmt-table">
+                <thead>
+                <tr>
+                    <th style="min-width: 150px;">Employee ID</th>
+                    <th style="min-width: 150px;">First Name</th>
+                    <th style="min-width: 150px;">Middle Name</th>
+                    <th style="min-width: 150px;">Last Name</th>
+                    <th>Age</th>
+                    <th>Designation</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th style="min-width: 200px;">Phone Number</th>
+                    <th style="min-width: 150px;">Date of Joining</th>
+                    <th style="min-width: 250px;">Address</th>
+                    <th style="min-width: 250px;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.empId}"></td>
+                    <td th:text="${employee.firstName}"></td>
+                    <td th:text="${employee.middleName}"></td>
+                    <td th:text="${employee.lastName}"></td>
+                    <td th:text="${employee.age}"></td>
+                    <td th:text="${employee.designationId}"></td>
+                    <td th:text="${employee.departmentId}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.phoneNumber}"></td>
+                    <td th:text="${#dates.format(employee.dateOfJoining, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${employee.address}"></td>
+                    <td>
+                        <div class="emp-mgmt-action-group">
+                            <a th:href="@{/employees/edit/{id}(id=${employee.id})}"
+                               class="emp-mgmt-edit-btn">Edit</a>
+                            <a th:href="@{/employees/delete/{id}(id=${employee.id})}"
+                               class="emp-mgmt-delete-btn"
+                               onclick="return confirm('Are you sure you want to delete this employee?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startVoiceSearch() {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const speechResult = event.results[0][0].transcript;
+            document.getElementById('emp-mgmt-txtSearch').value = speechResult;
+            document.querySelector('.emp-mgmt-search-form').submit();
+        };
+
+        recognition.onerror = function(event) {
+            alert('Voice search failed. Please try again.');
+        };
+    }
+</script>
+</section>
+</body>
+</html>
