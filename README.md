@@ -13,14 +13,15 @@ This is a simple **Asset Management System** built for college or office use. It
 - Login system with Admin and User roles.
 - Forget Password and Reset Password pages.
 
-##  Technologies Used
+## 🔧 Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: ASP.NET / Java (based on version you're using)
-- **Database**: SQL Server
-- **Barcode Library**: ZXing
-- **Chart Library**: Chart.js
-- **Voice Recognition**: JavaScript SpeechRecognition API
+| Frontend       | Backend        | Database | Tools & Libraries     |
+|----------------|----------------|----------|------------------------|
+| HTML, CSS      | Spring Boot    | MYSQL    | ZXing, Chart.js        |
+| JavaScript     | REST APIs      | LocalDB  | Web Speech API         |
+| Thymeleaf      | Spring MVC     |          |                        |
+
+
 
 ##  Setup Instructions
 
@@ -57,17 +58,6 @@ You can add an AI chatbot (like ChatGPT) for help and search.
 - Simple and mobile-friendly interface.
 - No Bootstrap used. Only pure CSS.
 
----
-
-
-
-## 🔧 Technologies Used
-
-| Frontend       | Backend        | Database | Tools & Libraries     |
-|----------------|----------------|----------|------------------------|
-| HTML, CSS      | Spring Boot    | MYSQL    | ZXing, Chart.js        |
-| JavaScript     | REST APIs      | LocalDB  | Web Speech API         |
-| Thymeleaf      | Spring MVC     |          |                        |
 
 ---
 
