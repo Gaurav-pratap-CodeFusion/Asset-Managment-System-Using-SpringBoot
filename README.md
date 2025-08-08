@@ -26,8 +26,8 @@ This is a simple **Asset Management System** built for college or office use. It
 ##  Setup Instructions
 
 1. Clone the project or download the zip.
-2. Open it in Visual Studio (for ASP.NET) or IntelliJ/Eclipse (for Java version).
-3. Set up your SQL Server and create the required tables.
+2. Open it in IntelliJ (for Spring Boot) or Eclipse.
+3. Set up your MYSQL and create the required tables.
 4. Update connection string in your code.
 5. Run the project and start managing assets.
 
@@ -38,10 +38,6 @@ The dashboard shows:
 - Asset categories in bar graph
 - Assigned vs Available assets
 
-##  Roles
-
-- **Admin**: Can add/edit/delete assets and assign them.
-- **User**: Can only view and search assets.
 
 ##  Voice Search
 
@@ -66,4 +62,4 @@ You can add an AI chatbot (like ChatGPT) for help and search.
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Gaurav-pratap-CodeFusion/Asset-Managment-System-Using-SpringBoot.git
-   cd asset-management
+   cd Asset-Managment-System-Using-SpringBoot
